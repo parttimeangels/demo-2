@@ -64,10 +64,13 @@ questions.forEach((q, i) => {
   div.className = "question";
   div.innerHTML = `
     <p>${i + 1}. ${q.text}</p>
-    ${[1,2,3,4,5].map(n => 
-      `<label><input type="radio" name="q${i}" value="${n}" required>${n}</label>`
-    ).join(" ")}
-  `;
+    const labels = ["전혀 그렇지 않다", "그렇지 않다", "보통이다", "그렇다", "매우 그렇다"];
+div.innerHTML = `
+  <p>${i + 1}. ${q.text}</p>
+  ${labels.map((label, idx) => 
+    `<label><input type="radio" name="q${i}" value="${idx+1}" required> ${label}</label>`
+  ).join(" ")}
+`;
   form.appendChild(div);
 });
 
