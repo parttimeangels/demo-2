@@ -225,54 +225,50 @@ function classify(scores) {
 // 9. 종합 해설 찾기
 // =========================
 function getCombinedInterpretation(dominant) {
-  let interpretations
-```
-
-
-\= \[];
-combinedPatterns.forEach(rule => {
-let match = true;
-for (let key in rule.combo) {
-if (dominant\[key] !== rule.combo\[key]) {
-match = false;
-break;
-}
-}
-if (match) interpretations.push(rule.interpretation);
-});
-return interpretations;
+  let interpretations = [];
+  combinedPatterns.forEach(rule => {
+    let match = true;
+    for (let key in rule.combo) {
+      if (dominant[key] !== rule.combo[key]) {
+        match = false;
+        break;
+      }
+    }
+    if (match) interpretations.push(rule.interpretation);
+  });
+  return interpretations;
 }
 
 // =========================
 // 10. 제출
 // =========================
 function submitTest() {
-const answers = questions.map((q, i) => {
-const val = document.querySelector(`input[name="q${i}"]:checked`);
-return val ? val.value : 3;
-});
+  const answers = questions.map((q, i) => {
+    const val = document.querySelector(`input[name="q${i}"]:checked`);
+    return val ? val.value : 3;
+  });
 
-const scores = calculateResults(answers);
-const dominant = classify(scores);
+  const scores = calculateResults(answers);
+  const dominant = classify(scores);
 
-let output = "<h2>결과</h2>";
+  let output = "<h2>결과</h2>";
 
-// 종합 해설 먼저
-const combined = getCombinedInterpretation(dominant);
-output += `<h3>종합 해설</h3>`;
-if (combined.length > 0) {
-combined.forEach(intp => output += `<p>${intp}</p>`);
-} else {
-output += `<p>당신의 성향은 균형적이거나 특정한 위험 패턴이 뚜렷하지 않습니다.</p>`;
-}
+  // 종합 해설 먼저
+  const combined = getCombinedInterpretation(dominant);
+  output += `<h3>종합 해설</h3>`;
+  if (combined.length > 0) {
+    combined.forEach(intp => output += `<p>${intp}</p>`);
+  } else {
+    output += `<p>당신의 성향은 균형적이거나 특정한 위험 패턴이 뚜렷하지 않습니다.</p>`;
+  }
 
-// 세부 해설
-output += `<h3>세부 해설</h3>`;
-for (let axis in dominant) {
-output += `<p><b>${axis}</b>: ${dominant[axis]} — ${axisDescriptions[axis][dominant[axis]]}</p>`;
-output += `<p>세부 점수 → 순응:${scores[axis]["순응"]}, 맞섬:${scores[axis]["맞섬"]}, 회피:${scores[axis]["회피"]}</p>`;
-output += `<p><i>⚠ 신경증적 위험: ${neuroticRisks[dominant[axis]]}</i></p>`;
-}
+  // 세부 해설
+  output += `<h3>세부 해설</h3>`;
+  for (let axis in dominant) {
+    output += `<p><b>${axis}</b>: ${dominant[axis]} — ${axisDescriptions[axis][dominant[axis]]}</p>`;
+    output += `<p>세부 점수 → 순응:${scores[axis]["순응"]}, 맞섬:${scores[axis]["맞섬"]}, 회피:${scores[axis]["회피"]}</p>`;
+    output += `<p><i>⚠ 신경증적 위험: ${neuroticRisks[dominant[axis]]}</i></p>`;
+  }
 
-document.getElementById("result").innerHTML = output;
+  document.getElementById("result").innerHTML = output;
 }
