@@ -75,7 +75,7 @@ const labels = [
 ];
 
 // =========================
-// 3. 축별 해설 (일상적 설명)
+// 3. 축별 해설
 // =========================
 const axisDescriptions = {
   relation: {
@@ -101,28 +101,14 @@ const axisDescriptions = {
 };
 
 // =========================
-// 4. 신경증적 위험
+// 카테고리 한글명 매핑
 // =========================
-const neuroticRisks = {
-  순응: "순응에 치우치면 자기 욕구가 억눌리고, 타인의 인정에만 매달려 답답함이나 우울로 이어질 수 있습니다.",
-  맞섬: "맞섬에 치우치면 주변과 충돌이 잦아 피곤해지고, 스스로 고립감을 느낄 위험이 있습니다.",
-  회피: "회피에 치우치면 책임과 갈등을 미루면서 무력감이 커지고, 결국 불안과 우울로 이어질 수 있습니다."
+const axisNames = {
+  relation: "관계",
+  coping: "문제해결",
+  self: "자기중심",
+  emotion: "정서표현"
 };
-
-// =========================
-// 5. 종합 해설 (대표적 유형들)
-// =========================
-const combinedPatterns = [
-  {
-    combo: { relation: "순응", self: "순응" },
-    interpretation: "당신은 관계에서도, 자기중심성에서도 타인의 기대를 많이 의식합니다. 주변과 원만하게 지내는 데 강점이 있지만, 정작 자신의 길을 분명히 정하고 나아가는 힘은 약해질 수 있습니다. 착한 사람, 좋은 사람으로 불리지만, 내 마음은 채워지지 않아 공허함이 찾아올 수 있습니다. 작은 것부터 ‘내가 원하는 선택’을 연습하면 균형을 찾을 수 있습니다."
-  },
-  {
-    combo: { relation: "맞섬", coping: "맞섬" },
-    interpretation: "당신은 관계와 문제 상황 모두에서 적극적이고 주도적인 태도를 보입니다. 자기 주도성이 강하고 추진력이 있지만, 주변과의 마찰도 잦을 수 있습니다. 때로는 ‘내가 맞다’는 확신이 갈등을 더 크게 만들기도 합니다. 내 의지를 지키면서도 상대와 협력하는 방법을 배우면 힘이 더 균형 있게 발휘됩니다."
-  }
-  // 필요시 다른 패턴도 추가 가능
-];
 
 // =========================
 // 6. 폼 자동 생성
@@ -132,7 +118,7 @@ questions.forEach((q, i) => {
   const div = document.createElement("div");
   div.className = "question";
   div.innerHTML = `
-    <p>${i + 1}. ${q.text}</p>
+    <p><b>[${axisNames[q.axis]}]</b> ${i + 1}. ${q.text}</p>
     ${labels.map(l =>
       `<label><input type="radio" name="q${i}" value="${l.value}" required> ${l.text}</label>`
     ).join(" ")}
@@ -182,25 +168,7 @@ function classify(scores) {
 }
 
 // =========================
-// 9. 종합 해설 찾기
-// =========================
-function getCombinedInterpretation(dominant) {
-  let interpretations = [];
-  combinedPatterns.forEach(rule => {
-    let match = true;
-    for (let key in rule.combo) {
-      if (dominant[key] !== rule.combo[key]) {
-        match = false;
-        break;
-      }
-    }
-    if (match) interpretations.push(rule.interpretation);
-  });
-  return interpretations;
-}
-
-// =========================
-// 10. 제출
+// 9. 제출
 // =========================
 function submitTest() {
   const answers = questions.map((q, i) => {
@@ -213,21 +181,11 @@ function submitTest() {
 
   let output = "<h2>결과</h2>";
 
-  // 종합 해설
-  const combined = getCombinedInterpretation(dominant);
-  output += `<h3>종합 해설</h3>`;
-  if (combined.length > 0) {
-    combined.forEach(intp => output += `<p>${intp}</p>`);
-  } else {
-    output += `<p>당신의 성향은 균형적이거나 특정한 위험 패턴이 뚜렷하지 않습니다.</p>`;
-  }
-
   // 세부 해설
   output += `<h3>세부 해설</h3>`;
   for (let axis in dominant) {
-    output += `<p><b>${axis}</b>: ${dominant[axis]} — ${axisDescriptions[axis][dominant[axis]]}</p>`;
+    output += `<p><b>${axisNames[axis]}</b>: ${dominant[axis]} — ${axisDescriptions[axis][dominant[axis]]}</p>`;
     output += `<p>세부 점수 → 순응:${scores[axis]["순응"]}, 맞섬:${scores[axis]["맞섬"]}, 회피:${scores[axis]["회피"]}</p>`;
-    output += `<p><i>⚠ 신경증적 위험: ${neuroticRisks[dominant[axis]]}</i></p>`;
   }
 
   document.getElementById("result").innerHTML = output;
