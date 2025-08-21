@@ -101,7 +101,7 @@ const axisDescriptions = {
 };
 
 // =========================
-// 카테고리 한글명 매핑
+// 4. 카테고리 한글명 매핑
 // =========================
 const axisNames = {
   relation: "관계",
@@ -111,7 +111,7 @@ const axisNames = {
 };
 
 // =========================
-// 6. 폼 자동 생성
+// 5. 폼 자동 생성
 // =========================
 const form = document.getElementById("testForm");
 questions.forEach((q, i) => {
@@ -127,9 +127,11 @@ questions.forEach((q, i) => {
 });
 
 // =========================
-// 7. 점수 계산
+// 6. 점수 계산 (2,4 가중치 보정)
 // =========================
 function calculateResults(answers) {
+  const weightMap = {1: 1.0, 2: 2.3, 3: 3.0, 4: 3.7, 5: 5.0};
+
   let scores = {
     relation: { 순응: 0, 맞섬: 0, 회피: 0 },
     coping: { 순응: 0, 맞섬: 0, 회피: 0 },
@@ -140,35 +142,37 @@ function calculateResults(answers) {
 
   answers.forEach((ans, i) => {
     const q = questions[i];
-    const score = parseInt(ans);
+    const score = weightMap[ans];
     scores[q.axis][q.style] += score;
     counts[q.axis][q.style]++;
   });
 
   for (let axis in scores) {
     for (let style in scores[axis]) {
-      scores[axis][style] = Math.round(scores[axis][style] / counts[axis][style]);
+      scores[axis][style] = (scores[axis][style] / counts[axis][style]).toFixed(2);
     }
   }
   return scores;
 }
 
 // =========================
-// 8. 우세 성향 판정
+// 7. 우세 성향 판정 (랜덤 타이브레이커)
 // =========================
 function classify(scores) {
   let result = {};
   for (let axis in scores) {
-    let maxStyle = Object.keys(scores[axis]).reduce((a, b) =>
-      scores[axis][a] >= scores[axis][b] ? a : b
+    let max = Math.max(...Object.values(scores[axis]).map(Number));
+    let candidates = Object.keys(scores[axis]).filter(
+      style => Number(scores[axis][style]) === max
     );
-    result[axis] = maxStyle;
+    let chosen = candidates[Math.floor(Math.random() * candidates.length)];
+    result[axis] = chosen;
   }
   return result;
 }
 
 // =========================
-// 9. 제출
+// 8. 제출 + 안전한 바 차트 출력
 // =========================
 function submitTest() {
   const answers = questions.map((q, i) => {
@@ -188,5 +192,44 @@ function submitTest() {
     output += `<p>세부 점수 → 순응:${scores[axis]["순응"]}, 맞섬:${scores[axis]["맞섬"]}, 회피:${scores[axis]["회피"]}</p>`;
   }
 
-  document.getElementById("result").innerHTML = output;
+  // 결과 출력
+  document.getElementById("result").innerHTML = output + '<canvas id="resultChart" width="400" height="300"></canvas>';
+
+  // ======================
+  // 안전한 바 차트 렌더링
+  // ======================
+  try {
+    const ctx = document.getElementById('resultChart').getContext('2d');
+
+    // 차트 데이터 준비
+    const labels = [];
+    const data = [];
+    for (let axis in scores) {
+      for (let style in scores[axis]) {
+        labels.push(`${axisNames[axis]}-${style}`);
+        data.push(scores[axis][style]);
+      }
+    }
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: '평균 점수',
+          data: data,
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true, max: 5 }
+        }
+      }
+    });
+  } catch (e) {
+    console.warn("차트 렌더링 실패:", e);
+  }
 }
