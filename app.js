@@ -62,15 +62,23 @@ const form = document.getElementById("testForm");
 questions.forEach((q, i) => {
   const div = document.createElement("div");
   div.className = "question";
+
+  // 1~5점 라벨
+  const labels = [
+    { value: 1, text: "전혀 그렇지 않다" },
+    { value: 2, text: "그렇지 않다" },
+    { value: 3, text: "보통이다" },
+    { value: 4, text: "그렇다" },
+    { value: 5, text: "매우 그렇다" }
+  ];
+
   div.innerHTML = `
     <p>${i + 1}. ${q.text}</p>
-    const labels = ["전혀 그렇지 않다", "그렇지 않다", "보통이다", "그렇다", "매우 그렇다"];
-div.innerHTML = `
-  <p>${i + 1}. ${q.text}</p>
-  ${labels.map((label, idx) => 
-    `<label><input type="radio" name="q${i}" value="${idx+1}" required> ${label}</label>`
-  ).join(" ")}
-`;
+    ${labels.map(l => 
+      `<label><input type="radio" name="q${i}" value="${l.value}" required> ${l.text}</label>`
+    ).join(" ")}
+  `;
+
   form.appendChild(div);
 });
 
