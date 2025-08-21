@@ -2,35 +2,26 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>카렌 호나이의 신경증적 갈등의 양상</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>카렌 호나이의 신경증적 갈등의 양상</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <h1>카렌 호나이의 신경증적 갈등의 양상</h1>
-
-    <div class="intro">
-      <p>
-        이 심리테스트는 카렌 호나이의 이론을 바탕으로,
-        인간이 삶 속에서 <b>관계, 문제해결, 자신과의 관계, 정서표현</b>에서
-        <b>순응, 맞섬, 회피</b>라는 세 가지 방식을 어떻게 사용하는지 살펴봅니다.
-      </p>
-      <p>
-        겉으로는 평온해 보여도 내면에는 공허함, 번아웃, 사소한 것에 대한 분노, 
-        남들이 모르는 비애가 숨어 있을 수 있습니다.  
-        이 테스트를 통해 자신의 성향과 내면의 갈등을 점검해보세요.
-      </p>
-    </div>
-
-    <form id="testForm"></form>
-
-    <div class="submit-box">
-      <button type="button" onclick="submitTest()">제출하기</button>
-    </div>
-
-    <div id="result" class="result"></div>
+    <p>
+      이 심리테스트는 인간의 삶에서 <b>관계, 문제해결, 자신과의 관계, 정서표현</b> 등 네 가지 영역을 살펴봅니다. 
+      각 영역에서 <b>순응, 맞섬, 회피</b>라는 세 가지 태도 중 어떤 경향이 도드라지는지 확인할 수 있습니다. 
+      이를 통해 내가 삶 속에서 얼마나 나를 지키면서 살아가고 있는지, 혹은 내면에 숨겨진 갈등이 무엇인지 살펴볼 수 있습니다.
+    </p>
   </div>
+
+  <div class="form-container">
+    <form id="testForm"></form>
+    <button type="button" onclick="submitTest()">제출하기</button>
+  </div>
+
+  <div id="result" class="result"></div>
 
   <script src="app.js"></script>
 </body>
