@@ -5,39 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>카렌 호나이의 신경증적 갈등의 양상</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="container">
     <h1>카렌 호나이의 신경증적 갈등의 양상</h1>
+    <p>
+      이 심리테스트는 인간관계, 문제해결, 자신과의 관계, 정서표현이라는 네 가지 영역에서 
+      <b>순응, 맞섬, 회피</b>의 경향이 어떻게 나타나는지를 점검합니다. <br>
+      이를 통해 내가 얼마나 균형 있게 내 삶을 지켜가고 있는지, 혹은 어떤 방향으로 치우쳐 있는지 
+      스스로 이해할 수 있도록 돕는 것을 목표로 합니다.
+    </p>
 
-    <section class="intro">
-      <p>
-        이 심리테스트는 정신분석학자 <b>카렌 호나이(Karen Horney)</b>의 이론을 바탕으로 설계되었습니다.  
-        인간은 삶 속에서 관계를 맺고, 문제를 해결하며, 자신과 감정을 다루는 과정에서  
-        <b>순응</b>(타인에게 맞추기), <b>맞섬</b>(정면으로 맞서기), <b>회피</b>(거리를 두기)라는  
-        세 가지 방식으로 반응하는 경향을 보입니다.
-      </p>
-      <p>
-        이 테스트는 <b>인간관계, 문제대응, 자기중심, 정서표현</b>의 네 가지 축을 통해  
-        당신이 주로 어떤 방식을 택하는지 살펴보고,  
-        그 결과가 삶의 목표와 자기 주도성을 얼마나 지켜내고 있는지를 점검하는 데 목적이 있습니다.  
-      </p>
-      <p>
-        각 문항에 답하면서, 지금의 나를 솔직히 돌아보고  
-        내가 어떤 상황에서 스스로를 지키지 못하거나  
-        불필요하게 힘을 쓰는지를 점검해보세요.  
-        결과를 통해 자신의 성향을 더 잘 이해하고,  
-        균형 잡힌 선택을 할 수 있는 방향을 찾을 수 있습니다.
-      </p>
-    </section>
-
-    <form id="testForm"></form>
-    <button class="submit-btn" onclick="submitTest()">제출하기</button>
+    <form id="testForm">
+      <!-- 질문 항목이 app.js에서 자동으로 생성됩니다 -->
+      <button type="button" onclick="submitTest()">제출하기</button>
+    </form>
 
     <div id="result"></div>
   </div>
 
-  <!-- ✅ JS는 맨 마지막에 -->
+  <!-- app.js 가장 마지막에 로드 -->
   <script src="app.js"></script>
 </body>
 </html>
