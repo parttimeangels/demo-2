@@ -1,39 +1,120 @@
+/* 기본 스타일 */
 body {
-  font-family: sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
   line-height: 1.6;
-  margin: 20px;
+  margin: 0;
+  padding: 0;
   background: #fafafa;
   color: #333;
 }
 
-h1 {
-  color: #444;
+.container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
+h1 {
+  text-align: center;
+  color: #444;
+  margin-bottom: 20px;
+}
+
+.intro {
+  margin-bottom: 30px;
+  padding: 15px;
+  background: #f9f9f9;
+  border-left: 5px solid #4CAF50;
+  border-radius: 8px;
+}
+
+.intro p {
+  margin-bottom: 12px;
+}
+
+/* 질문 영역 */
 .question {
   margin-bottom: 20px;
   padding: 10px;
   border-bottom: 1px solid #ddd;
 }
 
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 6px;
+.question p {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+label {
+  display: inline-block;
+  margin: 5px 10px 5px 0;
   cursor: pointer;
 }
 
-button:hover {
+input[type="radio"] {
+  margin-right: 6px;
+}
+
+/* 버튼 */
+.submit-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  font-size: 18px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  margin-top: 20px;
+}
+
+.submit-btn:hover {
   background: #45a049;
 }
 
-.result {
+/* 결과 */
+#result {
   margin-top: 30px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background: white;
+  background: #fefefe;
+}
+
+/* 반응형 (모바일 대응) */
+@media screen and (max-width: 600px) {
+  body {
+    font-size: 15px;
+  }
+
+  h1 {
+    font-size: 22px;
+  }
+
+  .container {
+    padding: 15px;
+  }
+
+  .intro {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  .question p {
+    font-size: 14px;
+  }
+
+  label {
+    display: block; /* 라디오 버튼 선택지가 세로로 배치 */
+    margin: 6px 0;
+  }
+
+  .submit-btn {
+    font-size: 16px;
+    padding: 12px;
+  }
 }
