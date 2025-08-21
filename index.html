@@ -2,19 +2,40 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title> 성격유형 테스트</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>카렌 호나이의 신경증적 갈등의 양상</title>
   <link rel="stylesheet" href="style.css">
+  <script defer src="app.js"></script>
 </head>
 <body>
-  <h1> 성격유형 테스트</h1>
-  <p>아래 32개의 질문에 응답해 주세요. 각 문항은 "전혀 그렇지 않다"부터 "매우 그렇다"까지 5단계 중 하나를 선택하면 됩니다.</p>
-  
-  <form id="testForm"></form>
-  
-  <button type="button" onclick="submitTest()">결과 확인하기</button>
+  <div class="container">
+    <h1>카렌 호나이의 신경증적 갈등의 양상</h1>
 
-  <div class="result" id="result"></div>
+    <section class="intro">
+      <p>
+        이 심리테스트는 정신분석학자 <b>카렌 호나이(Karen Horney)</b>의 이론을 바탕으로 설계되었습니다.  
+        인간은 삶 속에서 관계를 맺고, 문제를 해결하며, 자신과 감정을 다루는 과정에서  
+        <b>순응</b>(타인에게 맞추기), <b>맞섬</b>(정면으로 맞서기), <b>회피</b>(거리를 두기)라는  
+        세 가지 방식으로 반응하는 경향을 보입니다.
+      </p>
+      <p>
+        이 테스트는 <b>인간관계, 문제대응, 자기중심, 정서표현</b>의 네 가지 축을 통해  
+        당신이 주로 어떤 방식을 택하는지 살펴보고,  
+        그 결과가 삶의 목표와 자기 주도성을 얼마나 지켜내고 있는지를 점검하는 데 목적이 있습니다.  
+      </p>
+      <p>
+        각 문항에 답하면서, 지금의 나를 솔직히 돌아보고  
+        내가 어떤 상황에서 스스로를 지키지 못하거나  
+        불필요하게 힘을 쓰는지를 점검해보세요.  
+        결과를 통해 자신의 성향을 더 잘 이해하고,  
+        균형 잡힌 선택을 할 수 있는 방향을 찾을 수 있습니다.
+      </p>
+    </section>
 
-  <script src="app.js"></script>
+    <form id="testForm"></form>
+    <button class="submit-btn" onclick="submitTest()">제출하기</button>
+
+    <div id="result"></div>
+  </div>
 </body>
 </html>
